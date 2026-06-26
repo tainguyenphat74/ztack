@@ -5,6 +5,9 @@ node_modules/
 dist/
 *.tsbuildinfo
 
+# CLI bundles a copy of templates/ at build time — don't commit the copy
+/packages/cli/templates/
+
 # env — never commit any env file
 .env*
 
