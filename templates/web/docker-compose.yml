@@ -1,0 +1,29 @@
+# Self-hosted Postgres for local development or a VPS deployment.
+#
+#   docker compose up -d
+#
+# Then set in .env.local:
+#   DATABASE_URL=postgres://postgres:postgres@localhost:5432/app
+#
+# On a VPS, change POSTGRES_PASSWORD and bind the port to localhost only
+# (127.0.0.1:5432:5432), then connect your app over the private network.
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: app
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
