@@ -1,6 +1,8 @@
 #!/usr/bin/env node
 import { parseArgs } from "node:util";
 
+import { greet } from "./commands/greet";
+
 const { values, positionals } = parseArgs({
   args: process.argv.slice(2),
   options: {
@@ -11,10 +13,10 @@ const { values, positionals } = parseArgs({
 });
 
 function printHelp(): void {
-  console.log(`Usage: cli [command] [options]
+  console.log(`Usage: cli <command> [options]
 
 Commands:
-  greet            Print a greeting
+  greet            Print a greeting (prompts when --name is omitted)
 
 Options:
   -n, --name <s>   Name to greet
@@ -22,7 +24,7 @@ Options:
 `);
 }
 
-function main(): void {
+async function main(): Promise<void> {
   if (values.help) {
     printHelp();
     return;
@@ -32,13 +34,16 @@ function main(): void {
 
   switch (command) {
     case "greet":
-      console.log(`Hello, ${values.name ?? "world"}!`);
+      await greet(values.name);
       break;
     default:
-      console.error(`Unknown command: ${command}`);
+      console.error(`Unknown command: ${command}\n`);
       printHelp();
       process.exitCode = 1;
   }
 }
 
-main();
+main().catch((err) => {
+  console.error(err instanceof Error ? err.message : err);
+  process.exit(1);
+});

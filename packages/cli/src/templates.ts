@@ -18,13 +18,13 @@ export const TEMPLATES: TemplateDef[] = [
   {
     id: "api",
     label: "API",
-    hint: "Hono · TypeScript (lightweight HTTP API)",
+    hint: "Hono · zod · CRUD example",
     supportsDb: false,
   },
   {
     id: "cli",
     label: "CLI",
-    hint: "TypeScript Node CLI starter",
+    hint: "Node · @clack/prompts command router",
     supportsDb: false,
   },
 ];

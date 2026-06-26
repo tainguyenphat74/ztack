@@ -14,8 +14,8 @@ npx ztack my-app
 | Template | Stack                                                                 | Status |
 | -------- | --------------------------------------------------------------------- | ------ |
 | `web`    | Next.js 16 · TypeScript · Tailwind · shadcn/ui · Clerk · Drizzle      | ✅ ready |
-| `api`    | Hono · TypeScript (lightweight HTTP API)                              | 🧪 stub |
-| `cli`    | TypeScript Node CLI starter                                           | 🧪 stub |
+| `api`    | Hono · TypeScript · zod (CRUD example + tests)                        | ✅ ready |
+| `cli`    | TypeScript Node CLI · @clack/prompts (command router + tests)         | ✅ ready |
 
 See each template's own README under [`templates/`](templates/).
 
