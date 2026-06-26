@@ -1,0 +1,32 @@
+{
+  "name": "ztack",
+  "version": "0.1.0",
+  "description": "Scaffold project boilerplates (web, api, cli) with one command",
+  "type": "module",
+  "bin": {
+    "ztack": "./dist/index.js"
+  },
+  "files": ["dist", "templates"],
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "bun build src/index.ts --outdir dist --target node --banner '#!/usr/bin/env node' && bun run copy:templates",
+    "copy:templates": "rm -rf templates && cp -R ../../templates templates",
+    "prepublishOnly": "bun run build"
+  },
+  "keywords": ["scaffold", "boilerplate", "cli", "create", "starter"],
+  "license": "MIT",
+  "dependencies": {
+    "@clack/prompts": "^0.11.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
