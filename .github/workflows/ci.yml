@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  cli:
+    name: CLI (test, typecheck, build)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install
+      - name: Typecheck
+        run: bun run --cwd packages/cli typecheck
+      - name: Test
+        run: bun run --cwd packages/cli test
+      - name: Build
+        run: bun run --cwd packages/cli build
+
+  web-template:
+    name: web template (typecheck + build)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: templates/web
+    env:
+      # Dummy values so the production build can prerender; never real secrets.
+      NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: pk_test_Y2xlcmsuZXhhbXBsZS5jb20k
+      CLERK_SECRET_KEY: sk_test_ci_dummy_secret_key
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432/app
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+      - run: bun install
+      - name: Lint
+        run: bun run lint
+      - name: Typecheck
+        run: bun run typecheck
+      - name: Build
+        run: bun run build
