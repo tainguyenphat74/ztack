@@ -17,6 +17,16 @@
   },
   "keywords": ["scaffold", "boilerplate", "cli", "create", "starter"],
   "license": "MIT",
+  "author": "tainguyenphat74",
+  "homepage": "https://github.com/tainguyenphat74/ztack#readme",
+  "bugs": {
+    "url": "https://github.com/tainguyenphat74/ztack/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tainguyenphat74/ztack.git",
+    "directory": "packages/cli"
+  },
   "dependencies": {
     "@clack/prompts": "^0.11.0"
   },

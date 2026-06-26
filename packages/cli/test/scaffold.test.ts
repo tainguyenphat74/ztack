@@ -34,6 +34,9 @@ test.each(TEMPLATES.map((t) => t.id))(
     expect(existsSync(join(dest, "package.json"))).toBe(true);
     expect(existsSync(join(dest, "node_modules"))).toBe(false);
     expect(existsSync(join(dest, ".next"))).toBe(false);
+    // `gitignore` must be restored to `.gitignore` on copy.
+    expect(existsSync(join(dest, ".gitignore"))).toBe(true);
+    expect(existsSync(join(dest, "gitignore"))).toBe(false);
   },
 );
 

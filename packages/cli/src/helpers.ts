@@ -13,6 +13,12 @@ const SKIP = new Set([
   "next-env.d.ts",
 ]);
 
+// npm strips files named `.gitignore` from published packages, so templates
+// store theirs as `gitignore`. Restore the dotfile name on copy.
+const RENAME: Record<string, string> = {
+  gitignore: ".gitignore",
+};
+
 /** Recursively copy a directory, skipping build artifacts. */
 export async function copyDir(src: string, dest: string): Promise<void> {
   await mkdir(dest, { recursive: true });
@@ -20,7 +26,7 @@ export async function copyDir(src: string, dest: string): Promise<void> {
   for (const entry of entries) {
     if (SKIP.has(entry.name)) continue;
     const from = join(src, entry.name);
-    const to = join(dest, entry.name);
+    const to = join(dest, RENAME[entry.name] ?? entry.name);
     if (entry.isDirectory()) {
       await copyDir(from, to);
     } else {
